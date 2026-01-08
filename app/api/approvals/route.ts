@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { requireCapability } from '@/src/authz/guard'
-import { writeAudit } from '@/src/audit/writer'
 import { nextStatus } from '@/src/workflows/state'
+import { generateApprovalEvidence } from '@/src/evidence/approval'
 
 export async function POST(req: Request) {
   const session = await requireCapability('APPROVE_INTENT')
@@ -9,17 +9,17 @@ export async function POST(req: Request) {
 
   const newStatus = nextStatus(body.currentStatus, body.action)
 
-  await writeAudit({
-    id: crypto.randomUUID(),
-    tenantId: session.tenantId,
-    userId: session.user?.email,
-    action: \INTENT_\\,
-    targetId: body.intentId,
-    timestamp: new Date().toISOString(),
-  })
+  const evidence = await generateApprovalEvidence(
+    body.intentId,
+    body.action === 'APPROVE' ? 'APPROVED' : 'REJECTED',
+    session,
+    body.payload,
+    body.reason
+  )
 
   return NextResponse.json({
     intentId: body.intentId,
     status: newStatus,
+    evidence_id: evidence.evidence_id
   })
 }
