@@ -13,7 +13,7 @@
             {headers.map((h) => (
               <th
                 key={h}
-                className='px-4 py-3 text-left font-medium text-muted border-b border-border'
+                className='px-4 py-2.5 text-left font-medium text-muted border-b border-border'
               >
                 {h}
               </th>
@@ -22,11 +22,14 @@
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={i} className='odd:bg-background'>
+            <tr
+              key={i}
+              className='odd:bg-background hover:bg-border/40'
+            >
               {row.map((cell, j) => (
                 <td
                   key={j}
-                  className='px-4 py-3 border-b border-border'
+                  className='px-4 py-2.5 border-b border-border'
                 >
                   {cell}
                 </td>

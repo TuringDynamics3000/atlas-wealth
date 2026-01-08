@@ -1,7 +1,15 @@
-﻿export function Card({ children }: { children: React.ReactNode }) {
+﻿export function Card({
+  children,
+  padded = false,
+}: {
+  children: React.ReactNode
+  padded?: boolean
+}) {
   return (
     <div className='rounded-lg border border-border bg-panel shadow-sm'>
-      {children}
+      <div className={padded ? 'p-6' : ''}>
+        {children}
+      </div>
     </div>
   )
 }
