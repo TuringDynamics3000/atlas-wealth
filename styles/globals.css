@@ -1,4 +1,6 @@
-﻿:root {
+﻿@import './tokens.css';
+
+:root {
   --background: 0 0% 7%;
   --panel: 0 0% 10%;
   --border: 0 0% 18%;
@@ -11,3 +13,4 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
 }
+
