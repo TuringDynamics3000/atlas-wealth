@@ -1,9 +1,12 @@
-const TCORE_BASE = process.env.TURINGCORE_BASE_URL || 'https://turingcore.demo';
+import { getAuthContext } from '../auth/context'
+import { isProjectionError } from '../errors/projection'
 
-export async function fetchProjection<T>(
-  path: string,
-  auth: { tenantId: string }
-): Promise<T> {
+const BASE = process.env.TURINGCORE_BASE_URL || 'https://turingcore.demo';
+
+export async function fetchProjection<T>(path: string) {
+  const auth = getAuthContext()
+  const start = Date.now()
+
   const res = await fetch(
     \\/projections/\\,
     {
@@ -12,11 +15,19 @@ export async function fetchProjection<T>(
       },
       cache: 'no-store'
     }
-  );
+  )
+
+  const latency = Date.now() - start
+  const body = await res.json()
 
   if (!res.ok) {
-    throw new Error(\Projection fetch failed: \\);
+    throw body
   }
 
-  return res.json();
+  if (isProjectionError(body)) {
+    throw body
+  }
+
+  body.meta.latency_ms = latency
+  return body
 }

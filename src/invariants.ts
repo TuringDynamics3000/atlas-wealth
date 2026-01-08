@@ -1,6 +1,5 @@
 //
-// v2 invariant:
-// - NO mutation routes allowed
-// - Any POST/PUT/PATCH is a design violation
+// Alpha Wealth v2 invariant:
+// NO mutation endpoints allowed in this module.
 //
-export const READ_ONLY_MODE = true
+export const ALPHA_WEALTH_MODE = 'READ_ONLY' as const
