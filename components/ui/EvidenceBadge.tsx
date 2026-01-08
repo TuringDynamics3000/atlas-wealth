@@ -10,10 +10,8 @@ export function EvidenceBadge({
 }) {
   if (!evidence || evidence.length === 0) return null
 
-  return React.createElement(
-    'div',
-    { className: 'flex items-center gap-2 text-xs text-muted' },
-    React.createElement('span', null, 'Evidence'),
+  const children = [
+    React.createElement('span', { key: 'label' }, 'Evidence'),
     ...evidence.map(e =>
       React.createElement(
         'span',
@@ -24,6 +22,12 @@ export function EvidenceBadge({
         },
         e.type
       )
-    )
+    ),
+  ]
+
+  return React.createElement(
+    'div',
+    { className: 'flex items-center gap-2 text-xs text-muted' },
+    children
   )
 }
