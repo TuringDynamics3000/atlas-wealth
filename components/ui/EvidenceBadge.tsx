@@ -10,20 +10,25 @@ export function EvidenceBadge({
 }) {
   if (!evidence || evidence.length === 0) return null
 
-  const children = [
-    React.createElement('span', { key: 'label' }, 'Evidence'),
-    ...evidence.map(e =>
+  const children: any[] = []
+
+  children.push(
+    React.createElement('span', { key: 'label' }, 'Evidence')
+  )
+
+  for (const e of evidence) {
+    children.push(
       React.createElement(
         'span',
         {
           key: e.id,
-          title: \\ ? \ ? as at \\,
+          title: e.type + ' | ' + e.hash + ' | as at ' + e.asAt,
           className: 'rounded border border-border px-2 py-0.5',
         },
         e.type
       )
-    ),
-  ]
+    )
+  }
 
   return React.createElement(
     'div',
