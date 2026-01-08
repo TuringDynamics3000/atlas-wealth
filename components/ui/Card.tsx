@@ -1,4 +1,6 @@
-﻿export function Card({
+﻿import { memo } from 'react'
+
+export const Card = memo(function Card({
   children,
   padded = false,
 }: {
@@ -12,4 +14,4 @@
       </div>
     </div>
   )
-}
+})

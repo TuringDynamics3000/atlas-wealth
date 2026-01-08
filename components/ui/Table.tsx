@@ -1,4 +1,6 @@
-﻿export function Table({
+﻿import { memo } from 'react'
+
+export const Table = memo(function Table({
   headers,
   rows,
 }: {
@@ -40,4 +42,4 @@
       </table>
     </div>
   )
-}
+})

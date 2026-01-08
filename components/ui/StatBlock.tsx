@@ -1,4 +1,6 @@
-﻿export function StatBlock({
+﻿import { memo } from 'react'
+
+export const StatBlock = memo(function StatBlock({
   label,
   value,
   subtext,
@@ -22,4 +24,4 @@
       )}
     </div>
   )
-}
+})

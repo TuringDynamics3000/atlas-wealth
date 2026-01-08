@@ -1,4 +1,6 @@
-﻿export function EmptyState({
+﻿import { memo } from 'react'
+
+export const EmptyState = memo(function EmptyState({
   title,
   description,
 }: {
@@ -13,4 +15,4 @@
       </div>
     </div>
   )
-}
+})
