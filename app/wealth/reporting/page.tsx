@@ -5,8 +5,8 @@ import { EmptyState } from '@/components/ui/EmptyState'
 export default function ReportingPage() {
   const reports = [
     ['Quarterly Performance', 'All Entities', '2025 Q4', 'Available'],
-    ['Asset Allocation', 'Milne Family Trust', 'Dec 2025', 'Available'],
-    ['Risk Summary', 'HoldCo Pty Ltd', 'Dec 2025', 'Available'],
+    ['Asset Allocation', 'Demo Family Trust', 'Dec 2025', 'Available'],
+    ['Risk Summary', 'Demo Holdings Pty Ltd', 'Dec 2025', 'Available'],
   ]
 
   return (
@@ -37,3 +37,4 @@ export default function ReportingPage() {
     </div>
   )
 }
+

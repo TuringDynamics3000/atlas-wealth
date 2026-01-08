@@ -4,9 +4,9 @@ import { EmptyState } from '@/components/ui/EmptyState'
 
 export default function EntitiesPage() {
   const rows = [
-    ['Milne Family Trust', 'Trust', 'Active', '3 Portfolios'],
-    ['HoldCo Pty Ltd', 'Company', 'Active', '2 Portfolios'],
-    ['Personal', 'Individual', 'Active', '1 Portfolio'],
+    ['Demo Family Trust', 'Trust', 'Active', '3 Portfolios'],
+    ['Demo Holdings Pty Ltd', 'Company', 'Active', '2 Portfolios'],
+    ['Demo Individual', 'Individual', 'Active', '1 Portfolio'],
   ]
 
   return (
@@ -37,3 +37,4 @@ export default function EntitiesPage() {
     </div>
   )
 }
+

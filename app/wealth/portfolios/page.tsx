@@ -5,9 +5,9 @@ import { EmptyState } from '@/components/ui/EmptyState'
 
 export default function PortfoliosPage() {
   const rows = [
-    ['Balanced Growth', 'Milne Family Trust', 'Balanced', '', 'Active'],
-    ['Capital Preservation', 'HoldCo Pty Ltd', 'Defensive', '', 'Active'],
-    ['Personal Long-Term', 'Personal', 'Growth', '', 'Active'],
+    ['Balanced Growth', 'Demo Family Trust', 'Balanced', '', 'Active'],
+    ['Capital Preservation', 'Demo Holdings Pty Ltd', 'Defensive', '', 'Active'],
+    ['Demo Individual Long-Term', 'Demo Individual', 'Growth', '', 'Active'],
   ]
 
   return (
@@ -75,3 +75,4 @@ export default function PortfoliosPage() {
     </div>
   )
 }
+

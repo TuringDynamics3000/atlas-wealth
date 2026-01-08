@@ -51,9 +51,9 @@ export default function DashboardPage() {
           <Table
             headers={['Date', 'Entity', 'Action', 'Status']}
             rows={[
-              ['2026-01-08', 'Milne Family Trust', 'Rebalance Review', 'Pending'],
-              ['2026-01-07', 'HoldCo Pty Ltd', 'Allocation Update', 'Approved'],
-              ['2026-01-06', 'Personal', 'Portfolio Created', 'Completed'],
+              ['2026-01-08', 'Demo Family Trust', 'Rebalance Review', 'Pending'],
+              ['2026-01-07', 'Demo Holdings Pty Ltd', 'Allocation Update', 'Approved'],
+              ['2026-01-06', 'Demo Individual', 'Portfolio Created', 'Completed'],
             ]}
           />
         </div>
@@ -67,3 +67,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+
