@@ -1,4 +1,12 @@
-﻿# Atlas Wealth
+## Current Stable Release
+
+- **v6.8.0** — Continuous Advice & Learning Loop (execution gated)
+- See: [Release Notes](docs/releases/v6.8.0.md)
+
+> This release completes the end-to-end advice lifecycle with governed learning.
+> Execution remains disabled by design.
+
+# Atlas Wealth
 
 Atlas Wealth is a **regulated wealth-management product** delivered through the **Atlas Console**
 and powered by **TuringCore-v3**.
