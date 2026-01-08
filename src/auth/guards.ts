@@ -1,7 +1,12 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from './nextauth'
 
-export type Role = 'principal' | 'ic' | 'analyst' | 'advisor' | 'compliance'
+export type Role =
+  | 'principal'
+  | 'ic'
+  | 'analyst'
+  | 'advisor'
+  | 'compliance'
 
 export async function requireSession() {
   const session = await getServerSession(authOptions)
