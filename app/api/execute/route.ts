@@ -1,20 +1,24 @@
 import { NextResponse } from 'next/server'
 import { requireCapability } from '@/src/authz/guard'
-import { routeExecution } from '@/src/execution/router'
-import { generateExecutionEvidence } from '@/src/evidence/execution'
+import { getBroker } from '@/src/broker/router'
+import { generateBrokerEvidence } from '@/src/evidence/broker'
 
 export async function POST(req: Request) {
   const session = await requireCapability('APPROVE_INTENT')
   const body = await req.json()
 
-  const result = await routeExecution(body)
-  const evidence = await generateExecutionEvidence(session, {
-    ...body,
-    ...result
-  })
+  const broker = getBroker()
+  const reports = await broker.placeOrders(body.orders)
+
+  const evidence = await generateBrokerEvidence(
+    session,
+    body.intentId,
+    reports
+  )
 
   return NextResponse.json({
-    status: result.status,
+    intentId: body.intentId,
+    broker_reports: reports,
     evidence_id: evidence.evidence_id
   })
 }
