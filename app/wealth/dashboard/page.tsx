@@ -2,21 +2,19 @@
 import { StatBlock } from '@/components/ui/StatBlock'
 import { Table } from '@/components/ui/Table'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { EvidenceBadge } from '@/components/ui/EvidenceBadge'
 import { Projections } from '@/lib/projections/adapters'
 
 export default function DashboardPage() {
   const dashboard = Projections.dashboard()
   const kpi = dashboard.data
 
-  const activityRows = [
-    ['2026-01-08', 'Demo Family Trust', 'Rebalance Review', 'Pending'],
-    ['2026-01-07', 'Demo Holdings Pty Ltd', 'Allocation Update', 'Approved'],
-    ['2026-01-06', 'Demo Individual', 'Portfolio Created', 'Completed'],
-  ]
-
   return (
     <div className='space-y-6'>
-      <h1 className='text-lg font-medium'>Dashboard</h1>
+      <div className='flex items-center justify-between'>
+        <h1 className='text-lg font-medium'>Dashboard</h1>
+        <EvidenceBadge evidence={(dashboard as any).evidence} />
+      </div>
 
       <div className='grid grid-cols-3 gap-6'>
         <Card><div className='p-6'>
@@ -31,16 +29,6 @@ export default function DashboardPage() {
           <StatBlock label='Cash Allocation' value={kpi.cashAllocation} />
         </div></Card>
       </div>
-
-      <Card>
-        <div className='p-6 space-y-4'>
-          <div className='text-sm font-medium'>Recent Activity</div>
-          <Table
-            headers={['Date', 'Entity', 'Action', 'Status']}
-            rows={activityRows}
-          />
-        </div>
-      </Card>
 
       <EmptyState
         title='No alerts'
