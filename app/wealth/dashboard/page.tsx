@@ -1,4 +1,6 @@
-﻿import { Card } from '@/components/ui/Card'
+'use client'
+
+import { Card } from '@/components/ui/Card'
 import { StatBlock } from '@/components/ui/StatBlock'
 import { Table } from '@/components/ui/Table'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -17,17 +19,17 @@ export default function DashboardPage() {
       </div>
 
       <div className='grid grid-cols-3 gap-6'>
-        <Card><div className='p-6'>
+        <Card padded>
           <StatBlock label='Total Assets' value={kpi.totalAssets} />
-        </div></Card>
+        </Card>
 
-        <Card><div className='p-6'>
+        <Card padded>
           <StatBlock label='Active Portfolios' value={String(kpi.activePortfolios)} />
-        </div></Card>
+        </Card>
 
-        <Card><div className='p-6'>
+        <Card padded>
           <StatBlock label='Cash Allocation' value={kpi.cashAllocation} />
-        </div></Card>
+        </Card>
       </div>
 
       <EmptyState
