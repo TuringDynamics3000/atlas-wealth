@@ -1,25 +1,24 @@
 ﻿import { Card } from '@/components/ui/Card'
 import { Table } from '@/components/ui/Table'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { Projections } from '@/lib/projections/adapters'
 
 export default function EntitiesPage() {
-  const rows = [
-    ['Demo Family Trust', 'Trust', 'Active', '3 Portfolios'],
-    ['Demo Holdings Pty Ltd', 'Company', 'Active', '2 Portfolios'],
-    ['Demo Individual', 'Individual', 'Active', '1 Portfolio'],
-  ]
+  const projection = Projections.entities()
+  const rows = projection.data.map(e => [
+    e.name,
+    e.type,
+    e.status,
+    e.portfolios + ' Portfolios',
+  ])
 
   return (
     <div className='space-y-6'>
-      <h1 className='text-lg font-medium'>
-        Entities
-      </h1>
+      <h1 className='text-lg font-medium'>Entities</h1>
 
       <Card>
         <div className='p-6 space-y-4'>
-          <div className='text-sm font-medium'>
-            Entity Overview
-          </div>
+          <div className='text-sm font-medium'>Entity Overview</div>
 
           {rows.length > 0 ? (
             <Table
@@ -37,4 +36,3 @@ export default function EntitiesPage() {
     </div>
   )
 }
-

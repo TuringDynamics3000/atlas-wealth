@@ -11,15 +11,11 @@ export default function ReportingPage() {
 
   return (
     <div className='space-y-6'>
-      <h1 className='text-lg font-medium'>
-        Reporting
-      </h1>
+      <h1 className='text-lg font-medium'>Reporting</h1>
 
       <Card>
         <div className='p-6 space-y-4'>
-          <div className='text-sm font-medium'>
-            Available Reports
-          </div>
+          <div className='text-sm font-medium'>Available Reports</div>
 
           {reports.length > 0 ? (
             <Table
@@ -37,4 +33,3 @@ export default function ReportingPage() {
     </div>
   )
 }
-
