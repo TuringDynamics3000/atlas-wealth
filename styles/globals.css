@@ -1,0 +1,13 @@
+﻿:root {
+  --background: 0 0% 7%;
+  --panel: 0 0% 10%;
+  --border: 0 0% 18%;
+  --foreground: 0 0% 96%;
+  --muted: 0 0% 60%;
+  --accent: 217 91% 60%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
