@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server'
-import { requireRoles } from '@/src/auth/guards'
+import { requireCapability } from '@/src/authz/guard'
+import { writeAudit } from '@/src/audit/writer'
 import { EXECUTION_ENABLED } from '@/src/invariants.execution'
 import { nextStatus } from '@/src/workflows/state'
 
 export async function POST(req: Request) {
-  const session = await requireRoles(['principal', 'ic'])
+  const session = await requireCapability('SUBMIT_INTENT')
   const body = await req.json()
 
+  const intentId = crypto.randomUUID()
+
   const intent = {
-    id: crypto.randomUUID(),
+    id: intentId,
     type: body.type,
     submittedBy: session.user?.email,
     submittedAt: new Date().toISOString(),
@@ -16,8 +19,14 @@ export async function POST(req: Request) {
     payload: body.payload,
   }
 
-  // Evidence generation hook (v3)
-  // emitEvidence(intent)
+  await writeAudit({
+    id: crypto.randomUUID(),
+    tenantId: session.tenantId,
+    userId: session.user?.email,
+    action: 'INTENT_SUBMITTED',
+    targetId: intentId,
+    timestamp: new Date().toISOString(),
+  })
 
   if (EXECUTION_ENABLED) {
     throw new Error('EXECUTION_DISABLED_BY_POLICY')
