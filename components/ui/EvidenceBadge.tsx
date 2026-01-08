@@ -1,4 +1,6 @@
-﻿import { EvidenceRef } from '@/lib/audit/types'
+'use client'
+
+import { EvidenceRef } from '@/lib/audit/types'
 
 export function EvidenceBadge({
   evidence,
@@ -13,7 +15,7 @@ export function EvidenceBadge({
       {evidence.map(e => (
         <span
           key={e.id}
-          title={\\ • \ • as at \\}
+          title={\\ ? \ ? as at \\}
           className='rounded border border-border px-2 py-0.5'
         >
           {e.type}
