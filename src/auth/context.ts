@@ -1,14 +1,23 @@
+export type Role = 'principal' | 'ic' | 'analyst' | 'advisor' | 'compliance'
+
 export type AuthContext = {
   userId: string
   tenantId: string
-  roles: string[]
+  roles: Role[]
 }
 
 export function getAuthContext(): AuthContext {
-  // v2 stub: replace with OIDC / SAML
+  // v2.2: stubbed OIDC claims mapping
+  // Replace with real IdP token parsing later
   return {
-    userId: 'demo-user',
-    tenantId: 'demo-tenant',
+    userId: 'user-demo',
+    tenantId: 'tenant-demo',
     roles: ['principal']
+  }
+}
+
+export function requireRole(ctx: AuthContext, allowed: Role[]) {
+  if (!allowed.some(r => ctx.roles.includes(r))) {
+    throw new Error('FORBIDDEN')
   }
 }

@@ -1,5 +1,6 @@
 //
 // Alpha Wealth v2 invariant:
-// NO mutation endpoints allowed in this module.
+// - READ-ONLY MODE
+// - Any mutation endpoints are forbidden
 //
 export const ALPHA_WEALTH_MODE = 'READ_ONLY' as const
