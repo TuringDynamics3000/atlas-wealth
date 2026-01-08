@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 import { requireCapability } from '@/src/authz/guard'
 import { nextStatus } from '@/src/workflows/state'
-import { runShadowExecution } from '@/src/shadow/engine'
-import { generateShadowExecutionEvidence } from '@/src/evidence/shadow'
+import { generatePolicyEvidence } from '@/src/evidence/policy'
 
 export async function POST(req: Request) {
   const session = await requireCapability('APPROVE_INTENT')
@@ -14,14 +13,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ status: newStatus })
   }
 
-  // ---- SHADOW EXECUTION ONLY ----
-  const result = runShadowExecution(body.intentId, body.payload)
-  const evidence = await generateShadowExecutionEvidence(result, session)
+  // v3.4: policy diff evidence
+  const policyEvidence = await generatePolicyEvidence(
+    body.policy_before,
+    body.policy_after,
+    session
+  )
 
   return NextResponse.json({
     intentId: body.intentId,
     status: newStatus,
-    shadow_execution: result,
-    evidence_id: evidence.evidence_id
+    policy_hash: policyEvidence.policy_after.hash,
+    policy_diff: policyEvidence.diff,
+    evidence_id: policyEvidence.evidence_id
   })
 }
