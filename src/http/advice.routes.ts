@@ -1,4 +1,15 @@
-﻿import { Router } from 'express';
+﻿/**
+ * ARCHITECTURAL NOTE
+ *
+ * This file defines HTTP boundaries only.
+ * - No business logic belongs here
+ * - No direct state mutation occurs here
+ * - AuthorityContext enforcement happens downstream
+ * - All mutations must emit durable evidence
+ *
+ * This separation is intentional.
+ */
+import { Router } from 'express';
 import { buildAdviceDecision } from '../wealth-investments/decisions/buildAdviceDecision';
 import { recordClientAcceptance } from '../wealth-investments/acceptance/recordClientAcceptance';
 
@@ -36,3 +47,4 @@ adviceRouter.post('/accept', async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
