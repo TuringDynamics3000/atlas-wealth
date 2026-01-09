@@ -13,7 +13,6 @@
 *.md   text eol=lf
 *.yml  text eol=lf
 *.yaml text eol=lf
-*.json text eol=lf
 *.sh   text eol=lf
 
 # PowerShell scripts remain CRLF
@@ -26,5 +25,6 @@
 *.woff binary
 *.woff2 binary
 
-# Critical config files — no normalization
-package.json -text -working-tree-encoding
+# CRITICAL: package.json must NEVER be normalized
+package.json binary
+
