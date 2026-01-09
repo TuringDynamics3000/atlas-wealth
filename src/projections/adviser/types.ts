@@ -1,71 +1,119 @@
-import "server-only";
+﻿export type ISO8601 = string;
+export type Hash = string;
 
-export type SuitabilityStatus = "GREEN" | "AMBER" | "RED";
-export type RiskBand = "DEFENSIVE" | "BALANCED" | "GROWTH" | "AGGRESSIVE";
+export type AdviserId = string;
+export type ClientId = string;
+export type AdviceCaseId = string;
+export type PortfolioId = string;
+export type GoalId = string;
+export type LicenseeId = string;
+export type TenantId = string;
 
-export interface AdviserWorkQueueItem {
-  id: string;
-  clientId: string;
-  clientName: string;
-  kind: "ADVICE_DRAFT" | "SUITABILITY_BORDERLINE" | "ACCEPTANCE_PENDING" | "DRIFT_ALERT";
-  status: "OPEN" | "BLOCKED" | "WAITING_ON_CLIENT" | "WAITING_ON_REVIEW";
-  dueLabel?: string;
-  route: string;
-  summary: string;
+export type RiskBand =
+  | 'DEFENSIVE'
+  | 'BALANCED'
+  | 'GROWTH'
+  | 'AGGRESSIVE';
+
+export interface ProjectionAuthorityContext {
+  tenantId: TenantId;
+  licenseeId: LicenseeId;
+  adviserId?: AdviserId;
 }
 
-export interface AdviserWorkQueueProjection {
-  asOf: string;
-  summary: {
-    open: number;
-    blocked: number;
-    waitingOnClient: number;
-    waitingOnReview: number;
+export interface WorkQueueItem {
+  caseId: AdviceCaseId;
+  clientId: ClientId;
+  state:
+    | 'AWAITING_REVIEW'
+    | 'AWAITING_CLIENT_ACCEPTANCE'
+    | 'BLOCKED'
+    | 'COMPLETED';
+  priority: 'LOW' | 'NORMAL' | 'HIGH';
+  blockers?: string[];
+  lastUpdatedAt: ISO8601;
+}
+
+export interface AdviserWorkQueue {
+  asOf: ISO8601;
+  adviserId: AdviserId;
+  authority: ProjectionAuthorityContext;
+  items: WorkQueueItem[];
+}
+
+export interface ClientSnapshot {
+  asOf: ISO8601;
+  clientId: ClientId;
+  authority: ProjectionAuthorityContext;
+
+  identity: {
+    displayName: string;
+    entityType: 'INDIVIDUAL' | 'JOINT' | 'ENTITY';
   };
-  items: AdviserWorkQueueItem[];
+
+  riskProfile: {
+    band: RiskBand;
+    derivedAt: ISO8601;
+    sourceFactFindHash: Hash;
+  };
+
+  activeCases: AdviceCaseId[];
+  flags: string[];
 }
 
-export interface AdviserClientRow {
-  clientId: string;
-  name: string;
-  riskBand: RiskBand;
-  suitability: SuitabilityStatus;
-  lastAdviceStatus: "NONE" | "DRAFT" | "ISSUED";
-  acceptanceStatus: "NONE" | "PENDING" | "JOINT_PENDING" | "COOLING_OFF" | "COMPLETED";
+export interface AdviceCaseSummary {
+  asOf: ISO8601;
+  caseId: AdviceCaseId;
+  clientId: ClientId;
+  goalIds: GoalId[];
+  authority: ProjectionAuthorityContext;
+
+  proposal: {
+    portfolioId: PortfolioId;
+    portfolioHash: Hash;
+    expectedRisk: RiskBand;
+  };
+
+  suitability: {
+    outcome: 'SUITABLE' | 'NOT_SUITABLE' | 'BORDERLINE';
+    reasons: string[];
+  };
+
+  compliance: {
+    flags: string[];
+    status: 'CLEAR' | 'REVIEW_REQUIRED';
+  };
+
+  adviserDecision?: AdviserDecisionSummary;
 }
 
-export interface AdviserAdviceCaseProjection {
-  asOf: string;
-  caseId: string;
-  clientId: string;
-  clientName: string;
-  riskBand: RiskBand;
-  suitability: { status: SuitabilityStatus; reasons: string[] };
-  evidence: { factFindHash?: string; riskProfileHash?: string; universeHash?: string; decisionHash?: string };
-  hasOverride: boolean;
+export interface AdviserDecisionSummary {
+  decisionType: 'ACCEPT' | 'OVERRIDE' | 'REVISION_REQUESTED';
+  adviserId: AdviserId;
+  at: ISO8601;
+  rationale?: string;
+  proposalHash: Hash;
 }
 
-export interface AcceptanceRow {
-  caseId: string;
-  clientName: string;
-  status: "REQUESTED" | "SIGNED" | "JOINT_PENDING" | "COOLING_OFF" | "COMPLETED";
-  coolingOffEndsAt?: string;
+export interface AdviserDecisionHistory {
+  asOf: ISO8601;
+  caseId: AdviceCaseId;
+  authority: ProjectionAuthorityContext;
+  decisions: AdviserDecisionSummary[];
 }
 
-export interface OverrideRow {
-  caseId: string;
-  clientName: string;
-  status: "PENDING" | "APPROVED" | "REJECTED";
-  appliedAt: string;
-}
+export interface ClientAcceptanceStatus {
+  asOf: ISO8601;
+  caseId: AdviceCaseId;
+  authority: ProjectionAuthorityContext;
 
-export interface EvidenceRow {
-  id: string;
-  ts: string;
-  actor: string;
-  type: string;
-  summary: string;
-  hash?: string;
-  clientId?: string;
-  caseId?: string;
+  status:
+    | 'PENDING'
+    | 'JOINT_PENDING'
+    | 'COOLING_OFF'
+    | 'ACCEPTED'
+    | 'LAPSED';
+
+  acceptedAt?: ISO8601;
+  coolingOffEndsAt?: ISO8601;
 }
