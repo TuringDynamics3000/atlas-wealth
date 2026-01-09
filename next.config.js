@@ -1,18 +1,9 @@
 /** @type {import('next').NextConfig} */
-const path = require('path')
-
 const nextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
-
-  typescript: {
-    ignoreBuildErrors: true
-  },
-
   webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname)
-    return config
+    config.output.uniqueName = 'atlas-wealth';
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
