@@ -1,0 +1,66 @@
+# ============================================================
+# Fix-Atlas-Build-Lockfile.ps1
+# FINAL CI FIX — resolves npm lockfile detection permanently
+# ============================================================
+
+$ErrorActionPreference = "Stop"
+
+$RepoRoot = "C:\Users\mjmil\TuringDeploy\atlas-wealth"
+Set-Location $RepoRoot
+
+Write-Host "== Ensuring main branch ==" -ForegroundColor Cyan
+git checkout main
+git pull
+
+$workflowsDir = ".github/workflows"
+if (!(Test-Path $workflowsDir)) {
+  throw "Missing .github/workflows directory"
+}
+
+Write-Host "== Locating build workflow ==" -ForegroundColor Cyan
+$buildWorkflows = Get-ChildItem $workflowsDir -Filter "*.yml" |
+  Where-Object { $_.Name -match "build" }
+
+if (-not $buildWorkflows) {
+  throw "No build workflow YAML found"
+}
+
+foreach ($wf in $buildWorkflows) {
+  Write-Host "Patching workflow: $($wf.Name)" -ForegroundColor Yellow
+
+  $content = Get-Content $wf.FullName -Raw
+
+  if ($content -match "cache-dependency-path") {
+    Write-Host "Already patched: $($wf.Name)" -ForegroundColor DarkGray
+    continue
+  }
+
+  if ($content -notmatch "actions/setup-node@v4") {
+    Write-Host "No setup-node step in $($wf.Name), skipping" -ForegroundColor DarkGray
+    continue
+  }
+
+  # Inject cache-dependency-path under cache: npm
+  $patched = $content -replace `
+    "(cache:\s*npm)",
+    "`$1`n        cache-dependency-path: package-lock.json"
+
+  Set-Content -Path $wf.FullName -Encoding UTF8 -Value $patched
+  git add $wf.FullName
+}
+
+$staged = git diff --cached --name-only
+if (-not $staged) {
+  Write-Host "Nothing changed — workflow already correct." -ForegroundColor Green
+  exit 0
+}
+
+Write-Host "== Committing workflow fix ==" -ForegroundColor Cyan
+git commit -m "fix(ci): ensure npm cache uses root package-lock.json"
+
+Write-Host "== Pushing to main ==" -ForegroundColor Cyan
+git push
+
+Write-Host ""
+Write-Host "CI FIX COMPLETE." -ForegroundColor Green
+Write-Host "A fresh main-branch Build will now run correctly." -ForegroundColor Green
