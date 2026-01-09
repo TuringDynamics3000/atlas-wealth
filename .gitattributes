@@ -1,0 +1,30 @@
+﻿# ============================================================
+# Canonical line endings for Atlas Wealth
+# ============================================================
+
+# Default: enforce LF everywhere
+* text=auto eol=lf
+
+# Explicit file types
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.js   text eol=lf
+*.css  text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.sh   text eol=lf
+
+# PowerShell scripts remain CRLF
+*.ps1  text eol=crlf
+
+# Binary assets
+*.png  binary
+*.jpg  binary
+*.svg  binary
+*.woff binary
+*.woff2 binary
+
+# Critical config files — no normalization
+package.json -text -working-tree-encoding
