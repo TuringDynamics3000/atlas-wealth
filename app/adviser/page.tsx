@@ -1,33 +1,26 @@
-export default async function AdviserWorkflowPage() {
-  const res = await fetch('/api/adviser/client')
-  const data = await res.json()
+import Link from "next/link";
+import AdviserSidebar from "@/components/adviser/AdviserSidebar";
 
+export default function AdviserDashboard() {
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Adviser Workflow</h1>
-      <h2>Client: {data.client_id}</h2>
-      <section>
-        <h3>Financial State</h3>
-        <p>Accounts: { data.state.accounts_count }</p>
-        <p>Last Update: {data.state.last_updated }</p>
-      </section>
-      <section>
-        <h3>Drift Status</h3>
-        <p>{data.drift.status }: { data.drift.reason }</p>
-      </section>
-      <section>
-        <h3>Advice Status</h3>
-        <p>{data.advice.status }</p>
-        <ul>{ data.advice.reasons.map((r: string) => (<li key={r}>{r}</li>)) }</ul>
-      </section>
-      <section>
-        <h3>Next Actions</h3>
-        <ul>
-          <li>Regenerate Advice (required)</li>
-          <li>Review Advice Evidence</li>
-          <li>Await Client Acceptance</li>
-        </ul>
-      </section>
-    </main>
-  )
+    <div className="flex">
+      <AdviserSidebar />
+
+      <main className="p-8 flex-1 space-y-8">
+        <h1 className="text-3xl font-bold">Adviser Dashboard</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link href="/adviser/clients">
+            <div className="p-6 bg-white rounded-lg shadow hover:bg-gray-50 cursor-pointer">
+              📋 Client List
+            </div>
+          </Link>
+          <Link href="/adviser/advice/new">
+            <div className="p-6 bg-white rounded-lg shadow hover:bg-gray-50 cursor-pointer">
+              ✍️ New Advice
+            </div>
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
 }
