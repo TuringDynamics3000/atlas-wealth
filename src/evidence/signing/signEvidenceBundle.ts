@@ -22,7 +22,7 @@ export function signEvidenceBundle(
     bundle,
     signature,
     signedAt: new Date().toISOString(),
-    signer: "ATLAS_SYSTEM",
+    signer: "ATLAS_SYSTEM"
   };
 }
 
