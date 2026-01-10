@@ -1,0 +1,17 @@
+{
+    "created_at":  "2026-01-10T17:10:53.0467203+11:00",
+    "artefacts":  [
+
+                  ],
+    "evidence_pack_id":  "bacf3920-01db-4dcc-934b-2c0effbcfaf4",
+    "purpose":  "Initial advice finalisation",
+    "notepads":  {
+                     "advice":  "486c67d4-cb01-4046-9c03-b18c81bb7a29",
+                     "data":  "EXTERNAL_DATA_PROVENANCE",
+                     "system":  [
+                                    "AUTHORITY_MODEL",
+                                    "AGENT_BOUNDARIES",
+                                    "EVIDENCE_MODEL"
+                                ]
+                 }
+}
