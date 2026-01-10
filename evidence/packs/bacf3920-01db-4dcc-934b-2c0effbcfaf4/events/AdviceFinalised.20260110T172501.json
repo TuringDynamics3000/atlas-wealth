@@ -1,0 +1,8 @@
+{
+    "event_type":  "AdviceFinalised",
+    "advice_notepad_id":  "486c67d4-cb01-4046-9c03-b18c81bb7a29",
+    "evidence_pack_id":  "bacf3920-01db-4dcc-934b-2c0effbcfaf4",
+    "policy_registry_path":  "policies\\POLICY_REGISTRY.json",
+    "occurred_at":  "2026-01-10T17:25:01.5311635+11:00",
+    "policy_bundle_hash":  "0423de448ce20d0faa868d0365a99b2f1c27de5ae22228a643237495fcbfb93a"
+}

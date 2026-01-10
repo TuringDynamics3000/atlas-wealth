@@ -13,5 +13,22 @@
                                     "AGENT_BOUNDARIES",
                                     "EVIDENCE_MODEL"
                                 ]
-                 }
+                 },
+    "policy_binding":  {
+                           "registry_path":  "policies\\POLICY_REGISTRY.json",
+                           "policy_hashes":  [
+                                                 {
+                                                     "path":  "policies\\ADVICE_GOVERNANCE.md",
+                                                     "sha256":  "bc213f7b76dd576edb5fa9f72e0df5cf3992455a5b0c04c780145760c61868f2",
+                                                     "policy_id":  "ADVICE_GOVERNANCE"
+                                                 },
+                                                 {
+                                                     "path":  "policies\\DATA_PROVENANCE.md",
+                                                     "sha256":  "24b4f0775f17e178e8e495b46bddd854e53b3f1d441c3ddf6868e0517a651891",
+                                                     "policy_id":  "DATA_PROVENANCE"
+                                                 }
+                                             ],
+                           "bound_at":  "2026-01-10T17:23:15.7559922+11:00",
+                           "policy_bundle_hash":  "0423de448ce20d0faa868d0365a99b2f1c27de5ae22228a643237495fcbfb93a"
+                       }
 }
