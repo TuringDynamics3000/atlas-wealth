@@ -1,0 +1,33 @@
+{
+    "created_at":  "2026-01-10T17:19:42.6770609+11:00",
+    "policies":  [
+                     {
+                         "title":  "Advice Governance Policy",
+                         "path":  "policies\\ADVICE_GOVERNANCE.md",
+                         "policy_id":  "ADVICE_GOVERNANCE"
+                     },
+                     {
+                         "title":  "External Data Provenance Policy",
+                         "path":  "policies\\DATA_PROVENANCE.md",
+                         "policy_id":  "DATA_PROVENANCE"
+                     }
+                 ],
+    "policies_root":  "policies",
+    "registry_version":  "1.0",
+    "computed":  {
+                     "policy_hashes":  [
+                                           {
+                                               "path":  "policies\\ADVICE_GOVERNANCE.md",
+                                               "sha256":  "91cfe183ed1fd4f937e677cb7e0713de95545679b1d22de9d93886383a859ada",
+                                               "policy_id":  "ADVICE_GOVERNANCE"
+                                           },
+                                           {
+                                               "path":  "policies\\DATA_PROVENANCE.md",
+                                               "sha256":  "24b4f0775f17e178e8e495b46bddd854e53b3f1d441c3ddf6868e0517a651891",
+                                               "policy_id":  "DATA_PROVENANCE"
+                                           }
+                                       ],
+                     "computed_at":  "2026-01-10T17:38:28.2263473+11:00",
+                     "policy_bundle_hash":  "91a06f1718453bb2dc0b9131754c505d9abde8636338c9ede86b92c4b6a152c4"
+                 }
+}
